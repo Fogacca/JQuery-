@@ -14,6 +14,12 @@
             <button> .show() </button>
             <button> .toggle() </button>
         </div>
+        <div>
+            <button> .fadeIn() </button>
+            <button> .FadeOut()</button>
+            <button> .FadeToggle()</button>
+            <button> .fadeto()</button>
+        </div>
     </div>
     <script>
         // Formatar CSS
@@ -38,6 +44,25 @@
             $("#Foto").toggle(1000, function() {
                 alert("DAVI!?!? 🤨");
             });
+        });
+       
+        // Fade
+
+        $("button").eq(3).click(()=>{
+            $("#Foto").fadeIn(1000, function() {
+                alert("DAVI APARECEU!!! 😁");
+            });
+        }); 
+        $("button").eq(4).click(function(){
+            $("#Foto").css({
+                "border": "5px solid black"
+            }).fadeOut(1000)
+        });
+        $("button").eq(5).click(function(){
+            $("#Foto").fadeToggle(1000,)
+        });
+        $("button").eq(6).click(function(){
+            $("#Foto").fadeTo(1000, 0.5,)
         });
     </script>
 </body>
