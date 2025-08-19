@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade 01</title>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // Pegar o Button
+            $("button").eq(0).click(function(){
+                // alert("Certo!!!");
+                // Pegar o texto do parágrafo
+                let x = $("p").eq(0).text()
+                // Apliicar no Span
+                $("span").text(x)
+            });
+            $("button").eq(1).click(
+                ()=>{
+                    $("span").css(
+                        {
+                            "color": "red",
+                            "backgroundColor": "yellow",
+                        }
+                    ).text("Olá inserir texto manual")
+                }
+            )
+        $("input").eq(0).blur(
+            function(){
+                alert($("input").eq(0).val())
+            }
+        )
+        });
+    </script>
+</head>
+<body>
+    <p>Texto a ser pego pelo .text</p>
+    <button>.text()</button>
+    <button>.text()</button>
+    <span></span>
+    <div>
+        <label>Nome: </label>
+        <input type="text" name="x" id="x">
+    </div>
+</body>
+</html>
