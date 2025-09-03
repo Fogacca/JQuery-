@@ -1,0 +1,21 @@
+body {
+  background-color: #caf0f8;
+}
+
+h2, h4 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+form .form-control.is-valid {
+  border-color: #9ef01a;
+}
+
+form .form-control.is-invalid {
+  border-color: #03045e;
+}
+
+table th, table td {
+  vertical-align: middle;
+  text-align: center;
+}
