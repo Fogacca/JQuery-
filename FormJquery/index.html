@@ -19,12 +19,12 @@
       </div>
       <div class="mb-3">
         <label for="telefone" class="form-label">Telefone</label>
-        <input type="tel" class="form-control" id="telefone" required />
+        <input type="tel" class="form-control" id="telefone" placeholder="15 99999-9999" required />
         <div class="invalid-feedback">Campo obrigatório.</div>
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" required />
+        <input type="email" class="form-control" id="email" placeholder="cliente@gmail.com" required />
         <div class="invalid-feedback">Campo obrigatório.</div>
       </div>
       <div class="mb-3">
@@ -34,7 +34,7 @@
       </div>
       <div class="mb-3">
         <label for="cidade" class="form-label">Cidade</label>
-        <input type="text" class="form-control" id="cidade" required />
+        <input type="text" class="form-control" id="cidade" placeholder="" required />
         <div class="invalid-feedback">Campo obrigatório.</div>
       </div>
       <div class="mb-3">
@@ -49,6 +49,10 @@
     <hr />
 
     <h4>Registros</h4>
+    <div class="mb-3 d-flex gap-2">
+      <input type="text" id="filtro" class="form-control" placeholder="Pesquisar..." />
+      <button type="button" id="btnPesquisar" class="btn btn-info">Pesquisar</button>
+    </div>
     <table class="table table-bordered" id="tabela">
       <thead class="table-light">
         <tr>
@@ -69,17 +73,18 @@
     $(document).ready(function () {
       let registros = [];
       let editIndex = null;
+      let filtroTexto = "";
 
       function resetForm() {
         $("#formCadastro")[0].reset();
-        $(".form-control").removeClass("is-valid is-invalid");
+        $("#formCadastro .form-control").removeClass("is-valid is-invalid");
         editIndex = null;
         $("button[type='submit']").text("Salvar");
       }
 
       function validarCampos() {
         let valido = true;
-        $(".form-control").each(function () {
+        $("#formCadastro .form-control").each(function () {
           if (!$(this).val()) {
             $(this).addClass("is-invalid").removeClass("is-valid");
             valido = false;
@@ -94,7 +99,19 @@
         const tbody = $("#tabela tbody");
         tbody.empty();
 
-        registros.forEach((registro, i) => {
+        const filtrados = registros.filter(registro => {
+          const texto = filtroTexto.toLowerCase();
+          return (
+            registro.nome.toLowerCase().includes(texto) ||
+            registro.telefone.toLowerCase().includes(texto) ||
+            registro.email.toLowerCase().includes(texto) ||
+            registro.endereco.toLowerCase().includes(texto) ||
+            registro.cidade.toLowerCase().includes(texto) ||
+            registro.estado.toLowerCase().includes(texto)
+          );
+        });
+
+        filtrados.forEach((registro, i) => {
           tbody.append(`
             <tr>
               <td>${registro.nome}</td>
@@ -110,7 +127,6 @@
             </tr>
           `);
         });
-        console.log(registros);
       }
 
       $("#formCadastro").on("submit", function (e) {
@@ -150,7 +166,7 @@
         $("#cidade").val(registro.cidade);
         $("#estado").val(registro.estado);
         $("button[type='submit']").text("Atualizar");
-        $(".form-control").addClass("is-valid").removeClass("is-invalid");
+        $("#formCadastro .form-control").addClass("is-valid").removeClass("is-invalid");
       });
 
       $("#tabela").on("click", ".btn-excluir", function () {
@@ -160,6 +176,11 @@
           atualizarTabela();
           resetForm();
         }
+      });
+
+      $("#btnPesquisar").on("click", function () {
+        filtroTexto = $("#filtro").val();
+        atualizarTabela();
       });
     });
   </script>
